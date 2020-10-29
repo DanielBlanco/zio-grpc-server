@@ -2,11 +2,14 @@ scalaVersion := Deps.vScala
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
-val grpcVersion = "1.30.1"
+lazy val commonSettings = Seq(
+  scalaVersion := Deps.vScala
+)
 
 lazy val server = (project in file("server"))
   .aggregate(domain, shared)
   .settings(
+    commonSettings,
     libraryDependencies ++= Seq(Deps.grpc, Deps.scalapb, Deps.scalapbJson4s),
     update / aggregate := false,
     Compile / PB.targets := Seq(
@@ -17,11 +20,13 @@ lazy val server = (project in file("server"))
 
 lazy val domain = (project in file("domain"))
   .settings(
+    commonSettings
     // other settings
   )
 
 lazy val shared = (project in file("shared"))
   .settings(
+    commonSettings
     // other settings
   )
 

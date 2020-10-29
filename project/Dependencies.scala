@@ -4,7 +4,7 @@ import scalapb.compiler.Version.scalapbVersion
 /** Lib Versions */
 object Deps {
   val vScala         = "2.13.3"
-  val vGrpc          = "1.30.1"
+  val vGrpc          = "1.31.1"
   val vZio           = "1.0.3"
   val vScalapb       = scalapbVersion
   val vScalapbJson4s = "0.10.1"
