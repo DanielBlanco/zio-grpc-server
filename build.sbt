@@ -6,8 +6,8 @@ lazy val commonSettings = Seq(
   scalaVersion := Deps.vScala
 )
 
-lazy val server = (project in file("server"))
-  .aggregate(domain, shared)
+lazy val server = (project in file("."))
+  .aggregate(domain)
   .settings(
     commonSettings,
     libraryDependencies ++= Seq(Deps.grpc, Deps.scalapb, Deps.scalapbJson4s),
@@ -19,12 +19,6 @@ lazy val server = (project in file("server"))
   )
 
 lazy val domain = (project in file("domain"))
-  .settings(
-    commonSettings
-    // other settings
-  )
-
-lazy val shared = (project in file("shared"))
   .settings(
     commonSettings
     // other settings
