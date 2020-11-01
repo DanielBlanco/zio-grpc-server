@@ -19,11 +19,10 @@ case class UserService(
 ) extends ZioUser.ZUserService[ZEnv, Any] {
 
   /**
-    * Streams all features contained within the given bounding {@link Rectangle}.
+    * Streams all users contained in the users database.
     *
-    * @param request the bounding rectangle for the requested features.
+    * @param empty An empty type that we will ignore.
     */
-  // start: listFeatures
   def find(empty: Empty): ZStream[ZEnv, Status, User] =
     ZStream.fromIterable(users)
 
