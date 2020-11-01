@@ -8,7 +8,7 @@ https://randomuser.me/api/?results=10&inc=name,gender,nat&noinfo
 
 Just execute `sbt run` and the server will start listening on port `8980`.
 
-Now you can go to (zio-rpc-client)[https://github.com/DanielBlanco/zio-grpc-client]
+Now you can go to [zio-rpc-client](https://github.com/DanielBlanco/zio-grpc-client)
 and run it or you can install https://github.com/fullstorydev/grpcurl
 and execute the following:
 
