@@ -1,32 +1,26 @@
 package nova
 
 import io.grpc.Status
+import io.grpc.nova.user._
+import scala.math._
+import scala.io.Source
+import scalapb.json4s.JsonFormat
 import scalapb.zio_grpc.ServerMain
 import scalapb.zio_grpc.ServiceList
-import zio.{Ref, ZEnv, ZIO}
-import zio.stream.ZStream
+import zio.{ZEnv, UIO}
 import zio.console._
-
-import io.grpc.examples.routeguide.route_guide._
-import scala.math._
-import zio.IO
-import scalapb.json4s.JsonFormat
-import scala.io.Source
 import zio.clock.Clock
 import zio.clock._
-import zio.UIO
+import zio.stream.ZStream
 
 object Main extends ServerMain {
   override def port: Int = 8980
 
-  val featuresDatabase = JsonFormat.fromJsonString[FeatureDatabase](
-    Source.fromResource("route_guide_db.json").mkString
+  val database = JsonFormat.fromJsonString[UserDatabase](
+    Source.fromResource("user_db.json").mkString
   )
 
-  val createRouteGuide = for {
-    routeNotes <- Ref.make(Map.empty[Point, List[RouteNote]])
-  } yield new RouteGuideService(featuresDatabase.feature, routeNotes)
+  val userService = UIO.succeed(UserService(database.results))
 
-  def services: ServiceList[zio.ZEnv] =
-    ServiceList.addM(createRouteGuide)
+  def services: ServiceList[zio.ZEnv] = ServiceList.addM(userService)
 }
